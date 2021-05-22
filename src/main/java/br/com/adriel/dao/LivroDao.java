@@ -5,9 +5,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.net.ssl.SSLEngineResult.Status;
+
 import br.com.adriel.model.Autor;
 import br.com.adriel.model.Editora;
+import br.com.adriel.model.Exemplar;
 import br.com.adriel.model.Livro;
+import br.com.adriel.model.Estado;
 
 public class LivroDao extends Dao implements Persistencia<Livro>{
 
@@ -26,6 +30,19 @@ public class LivroDao extends Dao implements Persistencia<Livro>{
             ps.setString(1, dado.getIsbn());
             ps.setLong(2, autor.getCodigo());
             ps.executeUpdate();
+        }
+
+        for(Exemplar exemplar: dado.getExemplares()){
+            sql = "insert int exemplar(livro_isbn, status) values (?,?)";
+            ps=getPreparedStatement(true, sql);
+            ps.setString(1, dado.getIsbn());
+            ps.setString(2, exemplar.getStatus().toString());
+            ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+            if(rs.next()){
+                exemplar.setCodigo(rs.getLong("codigo"));
+            }
         }
     }
 
@@ -65,6 +82,17 @@ public class LivroDao extends Dao implements Persistencia<Livro>{
 
                 livro.adicionarAutor(autor);
             }
+            sql = "select * from exemplar where livro_isbn = ?";
+            PreparedStatement ps3 = getPreparedStatement(false, sql);
+            ps3.setString(1, livro.getIsbn());
+            ResultSet rs3 = ps3.getResultSet();
+
+            while(rs3.next()){
+                Exemplar exemplar = new Exemplar();
+                exemplar.setCodigo(rs3.getLong("codigo"));
+                exemplar.setStatus(Estado.valueOf(rs3.getString("status")));
+                livro.adicionarExemplar(exemplar);
+            }
 
             livros.add(livro);
         }
@@ -97,8 +125,13 @@ public class LivroDao extends Dao implements Persistencia<Livro>{
 
     @Override
     public void excluir(Livro dado) throws Exception {
-        String sql = "delete from livroautor where livro_isbn=?";
+        String sql = "delete from exemplar where livro_isbn=?";
         PreparedStatement ps = getPreparedStatement(false, sql);
+        ps.setString(1, dado.getIsbn());
+        ps.executeUpdate();
+
+        sql = "delete from livroautor where livro_isbn=?";
+        ps = getPreparedStatement(false, sql);
         ps.setString(1, dado.getIsbn());
         ps.executeUpdate();
 

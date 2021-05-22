@@ -1,12 +1,12 @@
 package br.com.adriel.model;
 
-public enum Status {
+public enum Estado {
     emprestado("Emprestado"),
     disponivel("Disponivel");
 
     private final String valor;
 
-    private Status(String valor){
+    private Estado(String valor){
         this.valor = valor;
     }
 

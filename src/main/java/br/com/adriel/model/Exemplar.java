@@ -3,7 +3,7 @@ package br.com.adriel.model;
 public class Exemplar {
     private Long codigo;
     private Livro livro;
-    private Status status;
+    private Estado status;
     
     public Long getCodigo() {
         return codigo;
@@ -17,10 +17,10 @@ public class Exemplar {
     public void setLivro(Livro livro) {
         this.livro = livro;
     }
-    public Status getStatus() {
+    public Estado getStatus() {
         return status;
     }
-    public void setStatus(Status status) {
+    public void setStatus(Estado status) {
         this.status = status;
     }
     @Override
@@ -50,7 +50,4 @@ public class Exemplar {
     public String toString() {
         return codigo.toString();
     }
-
-    
-
 }

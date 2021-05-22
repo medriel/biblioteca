@@ -8,6 +8,7 @@ public class Livro {
     private String nome;
     private Editora editora;
     private List<Autor> autores = new ArrayList<Autor>();
+    private List<Exemplar> exemplares = new ArrayList<Exemplar>();
     public String getIsbn() {
         return isbn;
     }
@@ -32,6 +33,14 @@ public class Livro {
     public void setAutores(List<Autor> autores) {
         this.autores = autores;
     }
+    
+    public List<Exemplar> getExemplares() {
+        return exemplares;
+    }
+    public void setExemplares(List<Exemplar> exemplares) {
+        this.exemplares = exemplares;
+    }
+
     @Override
     public String toString() {
         return "Livro [nome=" + nome + "]";
@@ -62,6 +71,10 @@ public class Livro {
     
     public void adicionarAutor(Autor autor){
         autores.add(autor);
+    }
+    public void adicionarExemplar(Exemplar exemplar){
+        exemplar.setLivro(this);
+        exemplares.add(exemplar);
     }
     public void removerAutor(Autor autor){
         autores.remove(autor);
