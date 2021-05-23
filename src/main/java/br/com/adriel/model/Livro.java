@@ -43,7 +43,7 @@ public class Livro {
 
     @Override
     public String toString() {
-        return "Livro [nome=" + nome + "]";
+        return nome;
     }
     @Override
     public int hashCode() {
@@ -74,6 +74,7 @@ public class Livro {
     }
     public void adicionarExemplar(Exemplar exemplar){
         exemplar.setLivro(this);
+        exemplar.setStatus(Estado.disponivel);
         exemplares.add(exemplar);
     }
     public void removerAutor(Autor autor){

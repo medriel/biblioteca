@@ -48,6 +48,10 @@ public class Exemplar {
     }
     @Override
     public String toString() {
+        if(codigo==null){
+            return "Codigo ainda não gerado";
+        }else{
         return codigo.toString();
+        }
     }
 }

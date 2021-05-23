@@ -10,7 +10,7 @@ public class EditoraDao extends Dao implements Persistencia<Editora>{
 
     @Override
     public void gravar(Editora dado) throws Exception {
-        String sql = "insert into editora (nome) values (?)";
+        String sql = "insert into editora(nome) values(?)";
         PreparedStatement ps=getPreparedStatement(true,sql);
         ps.setString(1, dado.getNome());
 
