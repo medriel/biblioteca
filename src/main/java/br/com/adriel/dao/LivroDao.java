@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.net.ssl.SSLEngineResult.Status;
-
 import br.com.adriel.model.Autor;
 import br.com.adriel.model.Editora;
 import br.com.adriel.model.Exemplar;
@@ -33,7 +31,7 @@ public class LivroDao extends Dao implements Persistencia<Livro>{
         }
 
         for(Exemplar exemplar: dado.getExemplares()){
-            sql = "insert int exemplar(livro_isbn, status) values (?,?)";
+            sql = "insert into exemplar(livro_isbn, status) values (?,?)";
             ps=getPreparedStatement(true, sql);
             ps.setString(1, dado.getIsbn());
             ps.setString(2, exemplar.getStatus().toString());
@@ -120,6 +118,26 @@ public class LivroDao extends Dao implements Persistencia<Livro>{
             ps.setString(1, dado.getIsbn());
             ps.setLong(2, autor.getCodigo());
             ps.executeUpdate();
+        }
+
+        for (Exemplar exemplar: dado.getExemplares()){
+            if(exemplar.getCodigo() == null){
+                sql = "insert into exemplar (livro_isbn, status) values (?,?)";
+                ps = getPreparedStatement(true, sql);
+                ps.setString(1, dado.getIsbn());
+                ps.setString(2, exemplar.getStatus().toString());
+                ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+            if(rs.next()){
+                exemplar.setCodigo(rs.getLong("codigo"));
+            }else{
+                sql = "update exemplar (status) values (?)";
+                ps = getPreparedStatement(false, sql);
+                ps.setString(1, exemplar.getStatus().toString());
+                ps.executeUpdate();
+            }
+            }
         }
     }
 

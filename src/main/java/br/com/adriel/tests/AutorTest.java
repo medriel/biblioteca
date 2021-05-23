@@ -13,7 +13,7 @@ public class AutorTest {
     public static void main(String[] args) throws Exception {
         
         Autor autor = new Autor();
-        autor.setNome("Pietro");
+        autor.setNome("Fransisco");
         autor.setNacionalidade("Espanhola");
 
         try {
