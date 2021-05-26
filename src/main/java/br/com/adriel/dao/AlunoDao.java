@@ -22,16 +22,16 @@ public class AlunoDao extends Dao implements Persistencia<Aluno>{
 
     @Override
     public List<Aluno> getDados() throws Exception {
-        String sql = "select leitor.cpf, leitor.nome, aluno.matricula from aluno inner join leitor"
-                + "on leitor.cpf = aluno.leitor_cpf order by leitor.nome";
+        String sql = "select leitor.cpf, leitor.nome, aluno.matricula from aluno inner join leitor on leitor.cpf = aluno.leitor_cpf order by leitor.nome";
         PreparedStatement ps = getPreparedStatement(false, sql);
         ResultSet rs = ps.executeQuery();
         List<Aluno> alunos = new ArrayList<Aluno>();
-        while(rs.next()){
+        while (rs.next()) {
             Aluno aluno = new Aluno();
             aluno.setCpf(rs.getString("cpf"));
             aluno.setMatricula(rs.getString("matricula"));
             aluno.setNome(rs.getString("nome"));
+            alunos.add(aluno);
         }
         return alunos;
     }

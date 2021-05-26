@@ -48,6 +48,11 @@ public class GuiMenu implements Initializable {
 
         exibirTela("GuiLivro", "Cadastro de Livros");
     }
+    @FXML
+    private void BtnLeitores_Action(ActionEvent event) {
+
+        exibirTela("GuiLeitor", "Cadastro de Leitores");
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
