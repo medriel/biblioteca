@@ -8,6 +8,10 @@ public class Emprestimo {
     private LocalDate dataDevolucao;
     private Exemplar exemplar;
     private Leitor leitor;
+
+    public Emprestimo(){
+        this.dataEmprestimo = LocalDate.now();
+    }
     
     public Long getCodigo() {
         return codigo;

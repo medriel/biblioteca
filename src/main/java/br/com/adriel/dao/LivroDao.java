@@ -11,7 +11,7 @@ import br.com.adriel.model.Exemplar;
 import br.com.adriel.model.Livro;
 import br.com.adriel.model.Estado;
 
-public class LivroDao extends Dao implements Persistencia<Livro>{
+public class LivroDao extends Dao implements Persistencia<Livro> {
 
     @Override
     public void gravar(Livro dado) throws Exception {
@@ -22,7 +22,7 @@ public class LivroDao extends Dao implements Persistencia<Livro>{
         ps.setLong(3, dado.getEditora().getCodigo());
         ps.executeUpdate();
 
-        for (Autor autor: dado.getAutores()){
+        for (Autor autor : dado.getAutores()) {
             sql = "insert into livroautor(livro_isbn,autor_codigo) values(?,?)";
             ps = getPreparedStatement(false, sql);
             ps.setString(1, dado.getIsbn());
@@ -30,15 +30,15 @@ public class LivroDao extends Dao implements Persistencia<Livro>{
             ps.executeUpdate();
         }
 
-        for(Exemplar exemplar: dado.getExemplares()){
+        for (Exemplar exemplar : dado.getExemplares()) {
             sql = "insert into exemplar(livro_isbn,status) values(?,?)";
-            ps=getPreparedStatement(true, sql);
+            ps = getPreparedStatement(true, sql);
             ps.setString(1, dado.getIsbn());
             ps.setString(2, exemplar.getStatus().toString());
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
-            if(rs.next()){
+            if (rs.next()) {
                 exemplar.setCodigo(rs.getLong("codigo"));
             }
         }
@@ -47,25 +47,25 @@ public class LivroDao extends Dao implements Persistencia<Livro>{
     @Override
     public List<Livro> getDados() throws Exception {
         String sql = " select livro.isbn, livro.nome as nomelivro, editora.codigo, editora.nome as nomeeditora "
-                    + " from livro inner join editora on livro.editora_codigo = editora.codigo "
-                    + " order by livro.nome";
+                + " from livro inner join editora on livro.editora_codigo = editora.codigo " 
+                + " order by livro.nome";
         PreparedStatement ps = getPreparedStatement(false, sql);
         ResultSet rs = ps.executeQuery();
-        
+
         List<Livro> livros = new ArrayList<Livro>();
-        
+
         while (rs.next()) {
             Livro livro = new Livro();
             livro.setIsbn(rs.getString("isbn"));
             livro.setNome(rs.getString("nomelivro"));
-            
+
             Editora editora = new Editora();
             editora.setCodigo(rs.getLong("codigo"));
             editora.setNome(rs.getString("nomeeditora"));
             livro.setEditora(editora);
 
             sql = "select autor.* from livroautor inner join autor on livroautor.autor_codigo = autor.codigo "
-                + " where livroautor.livro_isbn = ?";
+                    + " where livroautor.livro_isbn = ?";
             PreparedStatement ps2 = getPreparedStatement(false, sql);
             ps2.setString(1, livro.getIsbn());
             ResultSet rs2 = ps2.executeQuery();
@@ -78,7 +78,6 @@ public class LivroDao extends Dao implements Persistencia<Livro>{
 
                 livro.adicionarAutor(autor);
             }
-
 
             sql = "select * from exemplar where livro_isbn = ?";
             PreparedStatement ps3 = getPreparedStatement(false, sql);
@@ -112,7 +111,7 @@ public class LivroDao extends Dao implements Persistencia<Livro>{
         ps.setString(1, dado.getIsbn());
         ps.executeUpdate();
 
-        for (Autor autor: dado.getAutores()){
+        for (Autor autor : dado.getAutores()) {
             sql = "insert into livroautor(livro_isbn,autor_codigo) values(?,?)";
             ps = getPreparedStatement(false, sql);
             ps.setString(1, dado.getIsbn());
@@ -120,24 +119,24 @@ public class LivroDao extends Dao implements Persistencia<Livro>{
             ps.executeUpdate();
         }
 
-        for (Exemplar exemplar: dado.getExemplares()){
-            if(exemplar.getCodigo() == null){
+        for (Exemplar exemplar : dado.getExemplares()) {
+            if (exemplar.getCodigo() == null) {
                 sql = "insert into exemplar(livro_isbn,status) values(?,?)";
                 ps = getPreparedStatement(true, sql);
                 ps.setString(1, dado.getIsbn());
                 ps.setString(2, exemplar.getStatus().toString());
                 ps.executeUpdate();
 
-            ResultSet rs = ps.getGeneratedKeys();
-            if(rs.next()){
-                exemplar.setCodigo(rs.getLong("codigo"));
-            }else{
-                sql = "update exemplar set status =? where codigo=?";
-                ps = getPreparedStatement(false, sql);
-                ps.setString(1, exemplar.getStatus().toString());
-                ps.setLong(2, exemplar.getCodigo());
-                ps.executeUpdate();
-            }
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    exemplar.setCodigo(rs.getLong("codigo"));
+                } else {
+                    sql = "update exemplar set status =? where codigo=?";
+                    ps = getPreparedStatement(false, sql);
+                    ps.setString(1, exemplar.getStatus().toString());
+                    ps.setLong(2, exemplar.getCodigo());
+                    ps.executeUpdate();
+                }
             }
         }
     }
@@ -159,5 +158,59 @@ public class LivroDao extends Dao implements Persistencia<Livro>{
         ps.setString(1, dado.getIsbn());
         ps.executeUpdate();
     }
-    
+
+    public Exemplar buscarExemplar(Long codigo) throws Exception{
+        String sql = " select livro.isbn, livro.nome as nomelivro, editora.codigo, editora.nome as nomeeditora "
+                + " from livro inner join editora on livro.editora_codigo = editora.codigo " 
+                + " inner join exemplar on exemplar.livro_isbn = livro.isbn where exemplar.codigo =?";
+        PreparedStatement ps = getPreparedStatement(false, sql);
+        ps.setLong(1, codigo);
+        ResultSet rs = ps.executeQuery();
+
+        Exemplar resultado = null;
+
+        if (rs.next()) {
+            Livro livro = new Livro();
+            livro.setIsbn(rs.getString("isbn"));
+            livro.setNome(rs.getString("nomelivro"));
+
+            Editora editora = new Editora();
+            editora.setCodigo(rs.getLong("codigo"));
+            editora.setNome(rs.getString("nomeeditora"));
+            livro.setEditora(editora);
+
+            sql = "select autor.* from livroautor inner join autor on livroautor.autor_codigo = autor.codigo "
+                    + " where livroautor.livro_isbn = ?";
+            PreparedStatement ps2 = getPreparedStatement(false, sql);
+            ps2.setString(1, livro.getIsbn());
+            ResultSet rs2 = ps2.executeQuery();
+
+            while (rs2.next()) {
+                Autor autor = new Autor();
+                autor.setCodigo(rs2.getLong("codigo"));
+                autor.setNacionalidade(rs2.getString("nacionalidade"));
+                autor.setNome(rs2.getString("nome"));
+
+                livro.adicionarAutor(autor);
+            }
+
+            sql = "select * from exemplar where livro_isbn = ?";
+            PreparedStatement ps3 = getPreparedStatement(false, sql);
+            ps3.setString(1, livro.getIsbn());
+            ResultSet rs3 = ps3.executeQuery();
+
+            while (rs3.next()) {
+                Exemplar exemplar = new Exemplar();
+                exemplar.setCodigo(rs3.getLong("codigo"));
+                exemplar.setStatus(Estado.valueOf(rs3.getString("status")));
+                livro.adicionarExemplar(exemplar);
+                if(exemplar.getCodigo().equals(codigo)){
+                    resultado = exemplar;
+                }
+            }
+        }
+
+        return resultado;
+    }
+
 }
