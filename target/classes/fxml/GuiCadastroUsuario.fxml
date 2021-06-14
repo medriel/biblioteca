@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="407.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.adriel.gui.GuiCadastroUsuario">
+   <children>
+      <HBox layoutY="210.0" prefHeight="60.0" prefWidth="407.0">
+         <children>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#btnCadastrarAction" prefHeight="62.0" prefWidth="407.0" text="Cadastrar" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <HBox layoutY="478.0" prefHeight="86.0" prefWidth="407.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#btnRetornarAction" prefHeight="50.0" prefWidth="235.0" text="Retornar ao Menu Principal" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets left="80.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <GridPane layoutY="1.0" prefHeight="215.0" prefWidth="407.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Login :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Senha :" GridPane.rowIndex="1">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Cargo :" GridPane.rowIndex="2">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="txtLogin" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="txtSenha" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="txtCargo" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </TextField>
+         </children>
+      </GridPane>
+      <HBox layoutY="270.0" prefHeight="215.0" prefWidth="407.0">
+         <children>
+            <Label text="Usuários :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+            <ListView fx:id="lstUsuarios" prefHeight="200.0" prefWidth="200.0">
+               <HBox.margin>
+                  <Insets left="117.0" top="10.0" />
+               </HBox.margin>
+            </ListView>
+         </children>
+      </HBox>
+   </children>
+</Pane>
