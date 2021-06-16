@@ -5,8 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<GridPane alignment="CENTER" prefHeight="277.0" prefWidth="461.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.adriel.gui.GuiMenu">
+<GridPane alignment="CENTER" prefHeight="277.0" prefWidth="461.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.adriel.gui.GuiBibliotecario">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="230.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="230.0" />
@@ -16,22 +15,22 @@
       <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#BtnAutores_Action" prefHeight="85.0" prefWidth="190.0" text="Cadastrar Autores" textAlignment="CENTER" GridPane.rowIndex="1">
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnAutoresAction" prefHeight="85.0" prefWidth="190.0" text="Cadastrar Autores" textAlignment="CENTER" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Button>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#BtnEditoras_Action" prefHeight="85.0" prefWidth="190.0" text="Cadastrar Editoras" textAlignment="CENTER" GridPane.columnIndex="1">
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnUsuarioAction" prefHeight="85.0" prefWidth="190.0" text="Cadastrar Usuario" textAlignment="CENTER" GridPane.columnIndex="1">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Button>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#BtnLivros_Action" prefHeight="85.0" prefWidth="190.0" text="Cadastrar Livros">
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnLivrosAction" prefHeight="85.0" prefWidth="190.0" text="Cadastrar Livros">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Button>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#BtnLeitores_Action" prefHeight="85.0" prefWidth="190.0" text="Cadastrar Leitores" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnAtrasosAction" prefHeight="85.0" prefWidth="190.0" text="Consultar Atrasos" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>

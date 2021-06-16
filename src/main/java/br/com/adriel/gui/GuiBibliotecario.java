@@ -13,7 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class GuiMenu implements Initializable {
+public class GuiBibliotecario implements Initializable {
 
     
     private void exibirTela(String fxml, String titulo) {
@@ -33,25 +33,25 @@ public class GuiMenu implements Initializable {
     }
 
     @FXML
-    private void BtnAutores_Action(ActionEvent event) {
+    private void btnAutoresAction(ActionEvent event) {
 
         exibirTela("GuiAutor", "Cadastro de Autores");
 
     }
     @FXML
-    private void BtnEditoras_Action(ActionEvent event) {
+    private void btnUsuarioAction(ActionEvent event) {
 
-        exibirTela("GuiEditora", "Cadastro de Editoras");
+        exibirTela("GuiCadastroUsuario", "Cadastro de Usuarios");
     }
     @FXML
-    private void BtnLivros_Action(ActionEvent event) {
+    private void btnLivrosAction(ActionEvent event) {
 
         exibirTela("GuiLivro", "Cadastro de Livros");
     }
     @FXML
-    private void BtnLeitores_Action(ActionEvent event) {
+    private void btnAtrasosAction(ActionEvent event) {
 
-        exibirTela("GuiLeitor", "Cadastro de Leitores");
+        //exibirTela("GuiAtrasos", "Consulta de Emprestimos Atrasados");
     }
     
     @Override

@@ -7,7 +7,7 @@ import java.util.List;
 
 import br.com.adriel.model.Usuario;
 
-public class UsuarioDao extends Dao implements Persistencia<Usuario>{
+public class UsuarioDao extends Dao implements Persistencia<Usuario> {
 
     @Override
     public void gravar(Usuario dado) throws Exception {
@@ -17,7 +17,7 @@ public class UsuarioDao extends Dao implements Persistencia<Usuario>{
         ps.setString(2, dado.getSenha());
         ps.setString(3, dado.getCargo());
         ps.executeUpdate();
-        
+
     }
 
     @Override
@@ -38,11 +38,30 @@ public class UsuarioDao extends Dao implements Persistencia<Usuario>{
 
     @Override
     public void alterar(Usuario dado) throws Exception {
-        
+
     }
 
     @Override
     public void excluir(Usuario dado) throws Exception {
-        
+
     }
+
+    public Usuario autenticar(Usuario usuario) throws Exception {
+
+                String sql = "select usuario.login, usuario.senha, usuario.cargo from usuario where usuario.login=? and usuario.senha=?";
+                PreparedStatement ps = getPreparedStatement(false, sql);
+                ps.setString(1, usuario.getLogin());
+               ps.setString(2, usuario.getSenha());
+                ResultSet rs = ps.executeQuery();
+
+                if(rs.next()){
+                    Usuario usuarioOk = new Usuario();
+                    usuarioOk.setLogin(rs.getString("login"));
+                    usuarioOk.setCargo(rs.getString("cargo"));
+
+                    return usuarioOk;
+                }else{
+                    return null;
+                }
+        }
 }

@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
@@ -23,7 +24,7 @@ public class GuiCadastroUsuario implements Initializable{
     private TextField txtSenha;
 
     @FXML
-    private TextField txtCargo;
+    private ComboBox cbCargo;
 
     @FXML
     private ListView<Usuario> lstUsuarios;
@@ -43,7 +44,7 @@ public class GuiCadastroUsuario implements Initializable{
 
     @FXML
     private void btnCadastrarAction(ActionEvent event) {
-        Usuario user = new Usuario(txtLogin.getText(), txtSenha.getText(), txtCargo.getText());
+        Usuario user = new Usuario(txtLogin.getText(), txtSenha.getText(), (String) cbCargo.getSelectionModel().getSelectedItem());
 
         try {
             new UsuarioDao().gravar(user);
@@ -60,6 +61,9 @@ public class GuiCadastroUsuario implements Initializable{
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         preencherLista();
+        cbCargo.getItems().removeAll(cbCargo.getItems());
+        cbCargo.getItems().addAll("Bibliotecário", "Atendente");
+        cbCargo.getSelectionModel().select("Bibliotecário");
     }
 
 
