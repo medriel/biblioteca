@@ -43,25 +43,28 @@ public class UsuarioDao extends Dao implements Persistencia<Usuario> {
 
     @Override
     public void excluir(Usuario dado) throws Exception {
-
+        String sql = "delete from usuario where login =?";
+        PreparedStatement ps = getPreparedStatement(false, sql);
+        ps.setString(1, dado.getLogin());
+        ps.executeUpdate();
     }
 
     public Usuario autenticar(Usuario usuario) throws Exception {
 
-                String sql = "select usuario.login, usuario.senha, usuario.cargo from usuario where usuario.login=? and usuario.senha=?";
-                PreparedStatement ps = getPreparedStatement(false, sql);
-                ps.setString(1, usuario.getLogin());
-               ps.setString(2, usuario.getSenha());
-                ResultSet rs = ps.executeQuery();
+        String sql = "select usuario.login, usuario.senha, usuario.cargo from usuario where usuario.login=? and usuario.senha=?";
+        PreparedStatement ps = getPreparedStatement(false, sql);
+        ps.setString(1, usuario.getLogin());
+        ps.setString(2, usuario.getSenha());
+        ResultSet rs = ps.executeQuery();
 
-                if(rs.next()){
-                    Usuario usuarioOk = new Usuario();
-                    usuarioOk.setLogin(rs.getString("login"));
-                    usuarioOk.setCargo(rs.getString("cargo"));
+        if (rs.next()) {
+            Usuario usuarioOk = new Usuario();
+            usuarioOk.setLogin(rs.getString("login"));
+            usuarioOk.setCargo(rs.getString("cargo"));
 
-                    return usuarioOk;
-                }else{
-                    return null;
-                }
+            return usuarioOk;
+        } else {
+            return null;
         }
+    }
 }

@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="334.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.adriel.gui.GuiAutor">
    <children>
       <VBox prefHeight="400.0" prefWidth="233.0">
@@ -23,7 +22,7 @@
                   <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                </padding>
             </ListView>
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+            <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="233.0" spacing="5.0">
                <children>
                   <Button fx:id="btnNovo" mnemonicParsing="false" onAction="#btnNovoAction" prefWidth="60.0" text="Novo">
                      <HBox.margin>
@@ -41,7 +40,15 @@
                      </HBox.margin>
                   </Button>
                </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </HBox>
+            <Button mnemonicParsing="false" onAction="#btnRetornarAction" prefHeight="25.0" prefWidth="234.0" text="Retornar ao Menu Principal">
+               <VBox.margin>
+                  <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+               </VBox.margin>
+            </Button>
          </children>
       </VBox>
       <VBox prefHeight="400.0" prefWidth="317.0">

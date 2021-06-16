@@ -12,26 +12,30 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class GuiAutor implements Initializable {
-    
+
     @FXML
     private ListView<Autor> lstAutores;
-    @FXML 
+    @FXML
     private Button btnNovo;
-    @FXML 
+    @FXML
     private Button btnAlterar;
-    @FXML 
+    @FXML
     private Button btnExcluir;
-    @FXML 
+    @FXML
     private Button btnGravar;
-    @FXML 
+    @FXML
     private Button btnCancelar;
     @FXML
     private TextField txtId;
@@ -40,17 +44,17 @@ public class GuiAutor implements Initializable {
     @FXML
     private TextField txtNacionalidade;
 
-    //controla se é uma alteração o uinclusão
+    // controla se é uma alteração o uinclusão
     private Boolean alteracao;
 
-    //O autor que está sendo trabalhado
+    // O autor que está sendo trabalhado
     private Autor autor;
 
     // Objeto de manipulação de dados
     private Persistencia<Autor> autorDao = new AutorDao();
 
-    //Codigos da tela
-    private void habilitarEdicao(boolean editar){
+    // Codigos da tela
+    private void habilitarEdicao(boolean editar) {
         txtId.setEditable(editar);
         txtNome.setEditable(editar);
         txtNacionalidade.setEditable(editar);
@@ -64,12 +68,12 @@ public class GuiAutor implements Initializable {
 
         lstAutores.setDisable(editar);
 
-        if(editar){
+        if (editar) {
             txtNome.requestFocus();
         }
     }
 
-    private void preencherLista(){
+    private void preencherLista() {
         List<Autor> autores = new ArrayList<Autor>();
         try {
             autores = autorDao.getDados();
@@ -81,14 +85,14 @@ public class GuiAutor implements Initializable {
         lstAutores.setItems(dados);
     }
 
-    private void getAutorSelecionado(){
+    private void getAutorSelecionado() {
         autor = lstAutores.getSelectionModel().getSelectedItem();
         txtId.setText(autor.getCodigo().toString());
         txtNome.setText(autor.getNome());
         txtNacionalidade.setText(autor.getNacionalidade());
     }
 
-    private void limparCampos(){
+    private void limparCampos() {
         txtId.setText("");
         txtNacionalidade.setText("");
         txtNome.setText("");
@@ -99,10 +103,12 @@ public class GuiAutor implements Initializable {
     private void lstAutores_KeyPressed(KeyEvent event) {
         getAutorSelecionado();
     }
+
     @FXML
     private void lstAutores_MouseClicked(MouseEvent event) {
         getAutorSelecionado();
     }
+
     @FXML
     private void btnNovoAction(ActionEvent event) {
         autor = new Autor();
@@ -110,11 +116,13 @@ public class GuiAutor implements Initializable {
         alteracao = false;
         habilitarEdicao(true);
     }
+
     @FXML
     private void btnAlterarAction(ActionEvent event) {
-        alteracao= true;
+        alteracao = true;
         habilitarEdicao(true);
     }
+
     @FXML
     private void btnExcluirAction(ActionEvent event) {
         try {
@@ -127,15 +135,16 @@ public class GuiAutor implements Initializable {
         limparCampos();
 
     }
+
     @FXML
     private void btnGravarAction(ActionEvent event) {
         autor.setNacionalidade(txtNacionalidade.getText());
         autor.setNome(txtNome.getText());
 
         try {
-            if(alteracao){
+            if (alteracao) {
                 autorDao.alterar(autor);
-            }else{
+            } else {
                 autorDao.gravar(autor);
             }
         } catch (Exception e) {
@@ -146,12 +155,33 @@ public class GuiAutor implements Initializable {
         preencherLista();
         limparCampos();
     }
+
     @FXML
     private void btnCancelarAction(ActionEvent event) {
         habilitarEdicao(false);
     }
+
+    @FXML
+    private void btnRetornarAction(ActionEvent event) {
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/fxml/GuiBibliotecario.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/styles/Styles.css");
+
+            Stage stage = new Stage();
+            stage.setTitle("Bem Vindo(a) Bibliotecario(a)");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) btnNovo.getScene().getWindow();
+        stage.close();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         preencherLista();
-    }    
+    }
 }

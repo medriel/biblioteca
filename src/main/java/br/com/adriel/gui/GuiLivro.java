@@ -16,13 +16,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class GuiLivro implements Initializable {
     // Objetos do programa
@@ -220,7 +224,7 @@ public class GuiLivro implements Initializable {
             e.printStackTrace();
             return;
         }
-        
+
         preencherLivros();
         habilitarEdicao(false);
     }
@@ -228,6 +232,25 @@ public class GuiLivro implements Initializable {
     @FXML
     private void BtnCancelar_Action(ActionEvent event) {
         habilitarEdicao(false);
+    }
+
+    @FXML
+    private void btnRetornarAction(ActionEvent event) {
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/fxml/GuiBibliotecario.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/styles/Styles.css");
+
+            Stage stage = new Stage();
+            stage.setTitle("Bem Vindo(a) Bibliotecario(a)");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) BtnNovo.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
