@@ -1,6 +1,5 @@
 package br.com.adriel.gui;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -29,7 +28,7 @@ public class GuiCadastroUsuario implements Initializable {
     private TextField txtSenha;
 
     @FXML
-    private ComboBox cbCargo;
+    private ComboBox<String> cbCargo;
 
     @FXML
     private ListView<Usuario> lstUsuarios;
@@ -46,7 +45,6 @@ public class GuiCadastroUsuario implements Initializable {
         cbCargo.getSelectionModel().select("");
     }
 
-    @FXML
     private void preencherLista() {
         List<Usuario> usuarios;
         try {
