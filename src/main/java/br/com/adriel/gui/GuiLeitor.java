@@ -15,7 +15,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -24,49 +27,49 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 public class GuiLeitor implements Initializable {
 
     @FXML
     private ListView<Leitor> LstLeitores;
-    @FXML 
-    private ComboBox<String> CboTipo; 
+    @FXML
+    private ComboBox<String> CboTipo;
 
-    @FXML 
+    @FXML
     private HBox FrameMatricula;
-    @FXML 
+    @FXML
     private HBox FrameDisciplina;
 
-    @FXML 
+    @FXML
     private Button BtnNovo;
-    @FXML 
+    @FXML
     private Button BtnAlterar;
-    @FXML 
+    @FXML
     private Button BtnExcluir;
-    @FXML 
+    @FXML
     private Button BtnGravar;
-    @FXML 
+    @FXML
     private Button BtnCancelar;
 
-    @FXML 
+    @FXML
     private TextField TxtCpf;
-    @FXML 
+    @FXML
     private TextField TxtNome;
-    @FXML 
+    @FXML
     private TextField TxtSubClasse;
 
     @FXML
     private Label LblSubClasse;
 
-    //Controla se é uma inclusão ou alteração
+    // Controla se é uma inclusão ou alteração
     private Boolean alteracao;
     private LeitorDao leitorDao = new LeitorDao();
     private Leitor leitor;
 
-    //O autor que está sendo trabalhado
+    // O autor que está sendo trabalhado
 
-
-    //Códigos da tela
+    // Códigos da tela
     private void habilitarEdicao(boolean editar) {
         TxtCpf.setEditable(editar);
         TxtNome.setEditable(editar);
@@ -91,7 +94,7 @@ public class GuiLeitor implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
     private void preencherCombo() {
@@ -105,12 +108,13 @@ public class GuiLeitor implements Initializable {
 
     private void mostrarSubClasse() {
 
-        if (CboTipo.getSelectionModel().getSelectedItem()==null) return;
-        if (CboTipo.getSelectionModel().getSelectedItem().equals("Aluno")) {   
+        if (CboTipo.getSelectionModel().getSelectedItem() == null)
+            return;
+        if (CboTipo.getSelectionModel().getSelectedItem().equals("Aluno")) {
             LblSubClasse.setText("Matrícula");
         } else {
             LblSubClasse.setText("Disciplina");
-        }        
+        }
     }
 
     private void exibirDados() {
@@ -129,18 +133,18 @@ public class GuiLeitor implements Initializable {
             TxtNome.setText(professor.getNome());
             CboTipo.getSelectionModel().select("Professor");
             LblSubClasse.setText("Disciplina");
-            TxtSubClasse.setText(professor.getDisciplina());            
+            TxtSubClasse.setText(professor.getDisciplina());
         }
 
     }
 
-    public void limparTela(){
+    public void limparTela() {
         TxtNome.setText("");
         TxtCpf.setText("");
         TxtSubClasse.setText("");
     }
 
-    //Eventos de Tela
+    // Eventos de Tela
     @FXML
     private void LstLeitores_KeyPressed(KeyEvent event) {
         exibirDados();
@@ -150,6 +154,7 @@ public class GuiLeitor implements Initializable {
     private void LstLeitores_MouseClicked(MouseEvent event) {
         exibirDados();
     }
+
     @FXML
     private void CboTipo_KeyPressed(KeyEvent event) {
         mostrarSubClasse();
@@ -159,7 +164,6 @@ public class GuiLeitor implements Initializable {
     private void CboTipo_MouseClicked(MouseEvent event) {
         mostrarSubClasse();
     }
-
 
     @FXML
     private void BtnNovo_Action(ActionEvent event) {
@@ -191,38 +195,39 @@ public class GuiLeitor implements Initializable {
         preencherLista();
         limparTela();
     }
+
     @FXML
     private void BtnGravar_Action(ActionEvent event) {
         try {
-                if (alteracao) {
-                    if (CboTipo.getSelectionModel().getSelectedItem().equals("Aluno")) {
-                        Aluno aluno = (Aluno) leitor;
-                        aluno.setMatricula(TxtSubClasse.getText());
-                        aluno.setNome(TxtNome.getText());
+            if (alteracao) {
+                if (CboTipo.getSelectionModel().getSelectedItem().equals("Aluno")) {
+                    Aluno aluno = (Aluno) leitor;
+                    aluno.setMatricula(TxtSubClasse.getText());
+                    aluno.setNome(TxtNome.getText());
 
-                        new AlunoDao().alterar(aluno);
-                    } else {
-                        Professor professor = (Professor) leitor;
-                        professor.setDisciplina(TxtSubClasse.getText());
-                        professor.setNome(TxtNome.getText());
-
-                        new ProfessorDao().alterar(professor);
-                    }
+                    new AlunoDao().alterar(aluno);
                 } else {
-                    if (CboTipo.getSelectionModel().getSelectedItem().equals("Aluno")) {
-                        Aluno aluno = new Aluno();
-                        aluno.setCpf(TxtCpf.getText());
-                        aluno.setMatricula(TxtSubClasse.getText());
-                        aluno.setNome(TxtNome.getText());
-                        new AlunoDao().gravar(aluno);
-                    } else {
-                        Professor professor = new Professor();
-                        professor.setCpf(TxtCpf.getText());
-                        professor.setDisciplina(TxtSubClasse.getText());
-                        professor.setNome(TxtNome.getText());
-                        new ProfessorDao().gravar(professor);
-                    }
+                    Professor professor = (Professor) leitor;
+                    professor.setDisciplina(TxtSubClasse.getText());
+                    professor.setNome(TxtNome.getText());
+
+                    new ProfessorDao().alterar(professor);
                 }
+            } else {
+                if (CboTipo.getSelectionModel().getSelectedItem().equals("Aluno")) {
+                    Aluno aluno = new Aluno();
+                    aluno.setCpf(TxtCpf.getText());
+                    aluno.setMatricula(TxtSubClasse.getText());
+                    aluno.setNome(TxtNome.getText());
+                    new AlunoDao().gravar(aluno);
+                } else {
+                    Professor professor = new Professor();
+                    professor.setCpf(TxtCpf.getText());
+                    professor.setDisciplina(TxtSubClasse.getText());
+                    professor.setNome(TxtNome.getText());
+                    new ProfessorDao().gravar(professor);
+                }
+            }
         } catch (Exception exception) {
             exception.printStackTrace();
             return;
@@ -238,10 +243,29 @@ public class GuiLeitor implements Initializable {
         limparTela();
 
     }
-    
+
+    @FXML
+    private void btnRetornarAction(ActionEvent event) {
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/fxml/GuiAtendente.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/styles/Styles.css");
+
+            Stage stage = new Stage();
+            stage.setTitle("Bem Vindo(a) Bibliotecario(a)");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) BtnNovo.getScene().getWindow();
+        stage.close();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         preencherLista();
         preencherCombo();
-    }    
+    }
 }

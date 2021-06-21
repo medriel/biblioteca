@@ -40,7 +40,15 @@
                      </HBox.margin>
                   </Button>
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </HBox>
+            <Button mnemonicParsing="false" onAction="#btnRetornarAction" prefHeight="25.0" prefWidth="195.0" text="Retornar ao Menu Principal">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="25.0" right="10.0" />
+               </VBox.margin>
+            </Button>
          </children>
       </VBox>
       <VBox prefHeight="309.0" prefWidth="273.0">

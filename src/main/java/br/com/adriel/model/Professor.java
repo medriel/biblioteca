@@ -11,4 +11,9 @@ public class Professor extends Leitor{
     public void setDisciplina(String disciplina) {
         this.disciplina = disciplina;
     }
+
+    public static Integer getLimitedevolucao() {
+        return LIMITEDEVOLUCAO;
+    }
+
 }

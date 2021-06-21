@@ -11,4 +11,8 @@ public class Aluno extends Leitor{
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
+
+    public static Integer getLimitedevolucao() {
+        return LIMITEDEVOLUCAO;
+    }
 }
