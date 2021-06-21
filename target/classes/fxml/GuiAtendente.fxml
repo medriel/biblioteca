@@ -12,20 +12,14 @@
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnDevolverAction" prefHeight="85.0" prefWidth="190.0" text="Devolver Livros" textAlignment="CENTER" GridPane.rowIndex="1">
-         <GridPane.margin>
-            <Insets left="20.0" />
-         </GridPane.margin>
-      </Button>
       <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnLeitoresAction" prefHeight="85.0" prefWidth="190.0" text="Cadastrar Leitores" textAlignment="CENTER" GridPane.columnIndex="1">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Button>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnEmprestimoAction" prefHeight="85.0" prefWidth="190.0" text="Realizar Empréstimo">
+      <Button fx:id="btnEmprestimo" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnEmprestimoAction" prefHeight="85.0" prefWidth="190.0" text="Realizar Empréstimo">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>

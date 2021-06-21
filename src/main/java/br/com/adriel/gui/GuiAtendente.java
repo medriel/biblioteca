@@ -11,10 +11,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class GuiAtendente implements Initializable {
-
+    
+    @FXML
+    private Button btnEmprestimo;
     
     private void exibirTela(String fxml, String titulo) {
         Parent root;
@@ -31,22 +34,22 @@ public class GuiAtendente implements Initializable {
             e.printStackTrace();
         }
     }
+    private void fecharTela() {
+        Stage stage = (Stage) btnEmprestimo.getScene().getWindow();
+        stage.close();
+    }
 
     @FXML
     private void btnEmprestimoAction(ActionEvent event) {
 
-        //exibirTela("GuiEmprestimo", "Empréstimo de Livros");
-
+        exibirTela("GuiEmprestimo", "Empréstimo de Livros");
+        fecharTela();
     }
     @FXML
     private void btnLeitoresAction(ActionEvent event) {
 
         exibirTela("GuiLeitor", "Cadastro de Leitores");
-    }
-    @FXML
-    private void btnDevolverAction(ActionEvent event) {
-
-        //exibirTela("GuiDevolucao", "Devolução de Livros");
+        fecharTela();
     }
     
     @Override
