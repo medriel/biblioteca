@@ -67,6 +67,8 @@ public class GuiLivro implements Initializable {
     private TextField TxtIsbn;
     @FXML
     private TextField TxtNome;
+    @FXML
+    private TextField TxtAno;
 
     @FXML
     private ComboBox<Editora> CboEditora;
@@ -80,6 +82,7 @@ public class GuiLivro implements Initializable {
         BtnExcluir.setDisable(entrar);
         TxtIsbn.setEditable(entrar);
         TxtNome.setEditable(entrar);
+        TxtAno.setEditable(entrar);
         CboEditora.setDisable(!entrar);
         CboAutor.setDisable(!entrar);
         BtnAdicionarAutor.setDisable(!entrar);
@@ -154,6 +157,7 @@ public class GuiLivro implements Initializable {
 
         TxtIsbn.setText(livro.getIsbn());
         TxtNome.setText(livro.getNome());
+        TxtAno.setText(livro.getAno());
         CboEditora.getSelectionModel().select(livro.getEditora());
         preencherAutoresLivro();
         preencherExemplaresLivro();
@@ -167,6 +171,7 @@ public class GuiLivro implements Initializable {
         habilitarEdicao(true);
         TxtIsbn.setText("");
         TxtNome.setText("");
+        TxtAno.setText("");
         CboEditora.getSelectionModel().clearSelection();
         CboAutor.getSelectionModel().clearSelection();
         TxtIsbn.requestFocus();
@@ -184,7 +189,13 @@ public class GuiLivro implements Initializable {
 
     @FXML
     private void BtnExcluir_Action(ActionEvent event) {
-
+        try { 
+            livro = LstLivros.getSelectionModel().getSelectedItem(); 
+            new LivroDao().excluir(livro);;
+            preencherLivros();
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
     }
 
     @FXML
@@ -214,6 +225,7 @@ public class GuiLivro implements Initializable {
         try {
             livro.setEditora(CboEditora.getSelectionModel().getSelectedItem());
             livro.setNome(TxtNome.getText());
+            livro.setAno(TxtAno.getText());
             if (alterando) {
                 livroDao.alterar(livro);
             } else {

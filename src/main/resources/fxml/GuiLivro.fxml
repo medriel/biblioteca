@@ -62,15 +62,18 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label text="ISBN" />
                   <Label text="Nome" GridPane.rowIndex="1" />
-                  <Label text="Editora" GridPane.rowIndex="2" />
+                  <Label text="Editora" GridPane.rowIndex="3" />
                   <TextField fx:id="TxtIsbn" editable="false" GridPane.columnIndex="1" />
                   <TextField fx:id="TxtNome" editable="false" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-                  <ComboBox fx:id="CboEditora" disable="true" prefHeight="27.0" prefWidth="247.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="CboEditora" disable="true" prefHeight="27.0" prefWidth="247.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                  <Label text="Ano" GridPane.rowIndex="2" />
+                  <TextField fx:id="TxtAno" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
                <VBox.margin>
                   <Insets left="5.0" right="6.0" />

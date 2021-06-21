@@ -6,6 +6,7 @@ import java.util.List;
 public class Livro {
     private String isbn;
     private String nome;
+    private String ano;
     private Editora editora;
     private List<Autor> autores = new ArrayList<Autor>();
     private List<Exemplar> exemplares = new ArrayList<Exemplar>();
@@ -41,6 +42,12 @@ public class Livro {
         this.exemplares = exemplares;
     }
 
+    public String getAno() {
+        return ano;
+    }
+    public void setAno(String ano) {
+        this.ano = ano;
+    }
     @Override
     public String toString() {
         return nome;

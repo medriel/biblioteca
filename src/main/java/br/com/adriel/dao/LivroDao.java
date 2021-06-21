@@ -15,11 +15,12 @@ public class LivroDao extends Dao implements Persistencia<Livro> {
 
     @Override
     public void gravar(Livro dado) throws Exception {
-        String sql = "insert into livro(isbn,nome,editora_codigo) values(?,?,?)";
+        String sql = "insert into livro(isbn,nome,ano,editora_codigo) values(?,?,?,?)";
         PreparedStatement ps = getPreparedStatement(false, sql);
         ps.setString(1, dado.getIsbn());
         ps.setString(2, dado.getNome());
-        ps.setLong(3, dado.getEditora().getCodigo());
+        ps.setString(3, dado.getAno());
+        ps.setLong(4, dado.getEditora().getCodigo());
         ps.executeUpdate();
 
         for (Autor autor : dado.getAutores()) {
@@ -46,9 +47,8 @@ public class LivroDao extends Dao implements Persistencia<Livro> {
 
     @Override
     public List<Livro> getDados() throws Exception {
-        String sql = " select livro.isbn, livro.nome as nomelivro, editora.codigo, editora.nome as nomeeditora "
-                + " from livro inner join editora on livro.editora_codigo = editora.codigo " 
-                + " order by livro.nome";
+        String sql = " select livro.isbn, livro.ano, livro.nome as nomelivro, editora.codigo, editora.nome as nomeeditora "
+                + " from livro inner join editora on livro.editora_codigo = editora.codigo " + " order by livro.nome";
         PreparedStatement ps = getPreparedStatement(false, sql);
         ResultSet rs = ps.executeQuery();
 
@@ -58,6 +58,7 @@ public class LivroDao extends Dao implements Persistencia<Livro> {
             Livro livro = new Livro();
             livro.setIsbn(rs.getString("isbn"));
             livro.setNome(rs.getString("nomelivro"));
+            livro.setAno(rs.getString("ano"));
 
             Editora editora = new Editora();
             editora.setCodigo(rs.getLong("codigo"));
@@ -99,10 +100,11 @@ public class LivroDao extends Dao implements Persistencia<Livro> {
 
     @Override
     public void alterar(Livro dado) throws Exception {
-        String sql = "update livro set nome =?,editora_codigo=? where isbn=?";
+        String sql = "update livro set nome =?,ano =?, editora_codigo=? where isbn=?";
         PreparedStatement ps = getPreparedStatement(false, sql);
         ps.setString(1, dado.getNome());
-        ps.setLong(2, dado.getEditora().getCodigo());
+        ps.setString(2, dado.getAno());
+        ps.setLong(3, dado.getEditora().getCodigo());
         ps.setString(3, dado.getIsbn());
         ps.executeUpdate();
 
@@ -159,9 +161,9 @@ public class LivroDao extends Dao implements Persistencia<Livro> {
         ps.executeUpdate();
     }
 
-    public Exemplar buscarExemplar(Long codigo) throws Exception{
+    public Exemplar buscarExemplar(Long codigo) throws Exception {
         String sql = " select livro.isbn, livro.nome as nomelivro, editora.codigo, editora.nome as nomeeditora "
-                + " from livro inner join editora on livro.editora_codigo = editora.codigo " 
+                + " from livro inner join editora on livro.editora_codigo = editora.codigo "
                 + " inner join exemplar on exemplar.livro_isbn = livro.isbn where exemplar.codigo =?";
         PreparedStatement ps = getPreparedStatement(false, sql);
         ps.setLong(1, codigo);
@@ -173,6 +175,7 @@ public class LivroDao extends Dao implements Persistencia<Livro> {
             Livro livro = new Livro();
             livro.setIsbn(rs.getString("isbn"));
             livro.setNome(rs.getString("nomelivro"));
+            livro.setAno(rs.getString("ano"));
 
             Editora editora = new Editora();
             editora.setCodigo(rs.getLong("codigo"));
@@ -204,7 +207,7 @@ public class LivroDao extends Dao implements Persistencia<Livro> {
                 exemplar.setCodigo(rs3.getLong("codigo"));
                 exemplar.setStatus(Estado.valueOf(rs3.getString("status")));
                 livro.adicionarExemplar(exemplar);
-                if(exemplar.getCodigo().equals(codigo)){
+                if (exemplar.getCodigo().equals(codigo)) {
                     resultado = exemplar;
                 }
             }
