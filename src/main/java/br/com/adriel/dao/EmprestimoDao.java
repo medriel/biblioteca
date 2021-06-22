@@ -10,14 +10,14 @@ import java.util.List;
 
 import br.com.adriel.model.Aluno;
 import br.com.adriel.model.Emprestimo;
-import br.com.adriel.model.Estado;
+import br.com.adriel.model.Status;
 import br.com.adriel.model.Professor;
 
 public class EmprestimoDao extends Dao implements Persistencia<Emprestimo> {
 
     @Override
     public void gravar(Emprestimo dado) throws Exception {
-        String sql = "insert into emprestimo (dataemprestimo, leitor_cpf, exemplar_codigo, endereco, talefone) values (?,?,?,?,?)";
+        String sql = "insert into emprestimo (dataemprestimo, leitor_cpf, exemplar_codigo, endereco, telefone) values (?,?,?,?,?)";
         PreparedStatement ps = getPreparedStatement(true, sql);
         ps.setDate(1, Date.valueOf(dado.getDataEmprestimo()));
         ps.setString(2, dado.getLeitor().getCpf());
@@ -54,14 +54,15 @@ public class EmprestimoDao extends Dao implements Persistencia<Emprestimo> {
 
             emprestimos.add(emprestimo);
         }
+        //fecharConexao();
         return emprestimos;
     }
 
     @Override
     public void alterar(Emprestimo dado) throws Exception {
-        String sql = "update exemplar set estado = ? where exemplar.codigo = ?";
+        String sql = "update exemplar set status = ? where exemplar.codigo = ?";
         PreparedStatement ps = getPreparedStatement(true, sql);
-        ps.setString(1, Estado.disponivel.toString());
+        ps.setString(1, Status.disponivel.toString());
         ps.setLong(2, dado.getExemplar().getCodigo());
         ps.executeUpdate();
 
@@ -71,14 +72,14 @@ public class EmprestimoDao extends Dao implements Persistencia<Emprestimo> {
         ps.setLong(2, dado.getCodigo());
         ps.executeUpdate();
 
-        fecharConexao();
+        //fecharConexao();
     }
 
     @Override
     public void excluir(Emprestimo dado) throws Exception {
-        String sql = "update exemplar set estado = ? where exemplar.codigo = ?";
+        String sql = "update exemplar set status = ? where exemplar.codigo = ?";
         PreparedStatement ps = getPreparedStatement(true, sql);
-        ps.setString(1, Estado.disponivel.toString());
+        ps.setString(1, Status.disponivel.toString());
         ps.setLong(2, dado.getExemplar().getCodigo());
         ps.executeUpdate();
 
@@ -86,7 +87,6 @@ public class EmprestimoDao extends Dao implements Persistencia<Emprestimo> {
         ps = getPreparedStatement(true, sql2);
         ps.setLong(1, dado.getCodigo());
         ps.executeUpdate();
-        fecharConexao();
         dado = null;
     }
 
@@ -104,7 +104,7 @@ public class EmprestimoDao extends Dao implements Persistencia<Emprestimo> {
     }
 
     public List<Emprestimo> getPendentes() throws Exception {
-        String sql = "select codigo, dataemprestimo, datadevolucao, leitor_cpf, exemplar_codigo from emprestimo where datadevolucao is null order by dataemprestimo";
+        String sql = "select codigo, dataemprestimo, datadevolucao, leitor_cpf, exemplar_codigo, endereco, telefone from emprestimo where datadevolucao is null order by dataemprestimo";
         PreparedStatement ps = getPreparedStatement(false, sql);
         ResultSet rs = ps.executeQuery();
 
@@ -127,7 +127,7 @@ public class EmprestimoDao extends Dao implements Persistencia<Emprestimo> {
             }
         }
 
-        fecharConexao();
+        //fecharConexao();
         return emprestimos;
     }
 }

@@ -61,7 +61,7 @@ public class ProfessorDao extends Dao implements Persistencia<Professor>{
     
     public Professor buscarProfessor(String cpf) throws Exception{
         String sql = "select leitor.cpf, leitor.nome, professor.disciplina from  professor inner join leitor"
-                + "on leitor.cpf = professor.leitor_cpf where leitor.cpf =?";
+                + " on leitor.cpf = professor.leitor_cpf where leitor.cpf =?";
         PreparedStatement ps = getPreparedStatement(false, sql);
         ps.setString(1, cpf);
         ResultSet rs = ps.executeQuery();
@@ -69,7 +69,7 @@ public class ProfessorDao extends Dao implements Persistencia<Professor>{
         if(rs.next()){
             Professor professor = new Professor();
             professor.setCpf(rs.getString("cpf"));
-            professor.setDisciplina(rs.getString("matricula"));
+            professor.setDisciplina(rs.getString("disciplina"));
             professor.setNome(rs.getString("nome"));
             return professor;
         }else{

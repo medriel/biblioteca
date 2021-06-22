@@ -13,6 +13,8 @@ public abstract class Dao {
     private final String USUARIO = "postgres";
     private final String SENHA = "postgres";
 
+    //private Connection conexao;
+
     //conexao com o banco de dados ------------------------------------------------------------------------------
     protected Connection getConexao() throws SQLException {
         String url = "jdbc:postgresql://" + ENDERECO + ":" + PORTA + "/" + BANCODEDADOS;
@@ -30,5 +32,7 @@ public abstract class Dao {
 
         return ps;
     }
-    
+    /*protected void fecharConexao() throws SQLException {
+        conexao.close();
+      }*/
 }

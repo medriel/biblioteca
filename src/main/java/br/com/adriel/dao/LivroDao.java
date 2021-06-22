@@ -9,7 +9,7 @@ import br.com.adriel.model.Autor;
 import br.com.adriel.model.Editora;
 import br.com.adriel.model.Exemplar;
 import br.com.adriel.model.Livro;
-import br.com.adriel.model.Estado;
+import br.com.adriel.model.Status;
 
 public class LivroDao extends Dao implements Persistencia<Livro> {
 
@@ -88,7 +88,7 @@ public class LivroDao extends Dao implements Persistencia<Livro> {
             while (rs3.next()) {
                 Exemplar exemplar = new Exemplar();
                 exemplar.setCodigo(rs3.getLong("codigo"));
-                exemplar.setStatus(Estado.valueOf(rs3.getString("status")));
+                exemplar.setStatus(Status.valueOf(rs3.getString("status")));
                 livro.adicionarExemplar(exemplar);
             }
 
@@ -162,7 +162,7 @@ public class LivroDao extends Dao implements Persistencia<Livro> {
     }
 
     public Exemplar buscarExemplar(Long codigo) throws Exception {
-        String sql = " select livro.isbn, livro.nome as nomelivro, editora.codigo, editora.nome as nomeeditora "
+        String sql = " select livro.ano, livro.isbn, livro.nome as nomelivro, editora.codigo, editora.nome as nomeeditora "
                 + " from livro inner join editora on livro.editora_codigo = editora.codigo "
                 + " inner join exemplar on exemplar.livro_isbn = livro.isbn where exemplar.codigo =?";
         PreparedStatement ps = getPreparedStatement(false, sql);
@@ -205,7 +205,7 @@ public class LivroDao extends Dao implements Persistencia<Livro> {
             while (rs3.next()) {
                 Exemplar exemplar = new Exemplar();
                 exemplar.setCodigo(rs3.getLong("codigo"));
-                exemplar.setStatus(Estado.valueOf(rs3.getString("status")));
+                exemplar.setStatus(Status.valueOf(rs3.getString("status")));
                 livro.adicionarExemplar(exemplar);
                 if (exemplar.getCodigo().equals(codigo)) {
                     resultado = exemplar;

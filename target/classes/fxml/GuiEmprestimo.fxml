@@ -66,7 +66,7 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </TextField>
-            <ComboBox fx:id="cbLivro" prefHeight="25.0" prefWidth="227.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <ComboBox fx:id="cbLivro" onAction="#cbLivroAction" prefHeight="25.0" prefWidth="227.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
@@ -95,7 +95,7 @@
                   <Insets bottom="10.0" left="70.0" top="10.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#btnRenovarAction" prefWidth="70.0" text="Renovar">
+            <Button mnemonicParsing="false" onAction="#btnRemoverAction" prefWidth="70.0" text="Remover">
                <VBox.margin>
                   <Insets bottom="10.0" left="70.0" top="10.0" />
                </VBox.margin>

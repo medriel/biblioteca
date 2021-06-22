@@ -61,7 +61,7 @@ public class AlunoDao extends Dao implements Persistencia<Aluno>{
 
     public Aluno buscarAluno(String cpf) throws Exception{
         String sql = "select leitor.cpf, leitor.nome, aluno.matricula from aluno inner join leitor"
-                + "on leitor.cpf = aluno.leitor_cpf where leitor.cpf =?";
+                + " on leitor.cpf = aluno.leitor_cpf where leitor.cpf =?";
         PreparedStatement ps = getPreparedStatement(false, sql);
         ps.setString(1, cpf);
         ResultSet rs = ps.executeQuery();
