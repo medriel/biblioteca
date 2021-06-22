@@ -81,7 +81,7 @@ public class Livro {
     }
     public void adicionarExemplar(Exemplar exemplar){
         exemplar.setLivro(this);
-        exemplar.setStatus(Estado.disponivel);
+        exemplar.setStatus(Status.disponivel);
         exemplares.add(exemplar);
     }
     public void removerAutor(Autor autor){

@@ -169,6 +169,7 @@ public class GuiLeitor implements Initializable {
     private void BtnNovo_Action(ActionEvent event) {
         alteracao = false;
         habilitarEdicao(true);
+        limparTela();
     }
 
     @FXML
