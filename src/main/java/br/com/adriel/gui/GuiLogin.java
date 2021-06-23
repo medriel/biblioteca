@@ -24,8 +24,7 @@ public class GuiLogin implements Initializable {
     private PasswordField passSen;
 
     @FXML
-    private void btnEntrarAction(ActionEvent event) {
-
+    private void btnLoginAction(ActionEvent event) {
         try {
             String login = txtLogin.getText();
             String senha = passSen.getText();
@@ -66,6 +65,13 @@ public class GuiLogin implements Initializable {
 
         Stage stage = (Stage) txtLogin.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    private void btnCancelarAction(ActionEvent event) {
+        txtLogin.setText("");
+        passSen.setText("");
+        txtLogin.requestFocus();
     }
 
     @Override

@@ -10,13 +10,15 @@
    <children>
       <HBox layoutY="211.0" prefHeight="92.0" prefWidth="362.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#btnEntrarAction" prefHeight="44.0" prefWidth="120.0" text="Entrar" textAlignment="CENTER" HBox.hgrow="NEVER">
+            <Button mnemonicParsing="false" onAction="#btnCancelarAction" prefHeight="30.0" prefWidth="90.0" text="Cancelar">
                <HBox.margin>
-                  <Insets left="230.0" />
+                  <Insets left="60.0" right="30.0" top="10.0" />
                </HBox.margin>
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#btnLoginAction" prefHeight="30.0" prefWidth="90.0" text="Login">
+               <HBox.margin>
+                  <Insets left="30.0" right="50.0" top="10.0" />
+               </HBox.margin>
             </Button>
          </children>
       </HBox>
