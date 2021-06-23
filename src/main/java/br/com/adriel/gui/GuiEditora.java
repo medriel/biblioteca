@@ -12,58 +12,61 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class GuiEditora implements Initializable {
-    
-    @FXML
-    private ListView<Editora> LstEditoras;
-    @FXML 
-    private Button BtnNovo;
-    @FXML 
-    private Button BtnAlterar;
-    @FXML 
-    private Button BtnExcluir;
-    @FXML 
-    private Button BtnGravar;
-    @FXML 
-    private Button BtnCancelar;
-    @FXML 
-    private TextField TxtId;
-    @FXML 
-    private TextField TxtNome;
 
-    //Controla se é uma inclusão ou alteração
+    @FXML
+    private ListView<Editora> lstEditoras;
+    @FXML
+    private Button btnNovo;
+    @FXML
+    private Button btnAlterar;
+    @FXML
+    private Button btnExcluir;
+    @FXML
+    private Button btnGravar;
+    @FXML
+    private Button btnCancelar;
+    @FXML
+    private TextField txtId;
+    @FXML
+    private TextField txtNome;
+
+    // Controla se é uma inclusão ou alteração
     private Boolean alteracao;
 
-    //O autor que está sendo trabalhado
+    // O autor que está sendo trabalhado
     private Editora editora;
 
-    //Objeto de manipulação de dados
+    // Objeto de manipulação de dados
     private Persistencia<Editora> editoraDao = new EditoraDao();
 
-
-    //Códigos da tela
+    // Códigos da tela
     private void habilitarEdicao(boolean editar) {
-        TxtId.setEditable(editar);
-        TxtNome.setEditable(editar);
+        txtId.setEditable(editar);
+        txtNome.setEditable(editar);
 
-        BtnGravar.setDisable(!editar);
-        BtnCancelar.setDisable(!editar);
+        btnGravar.setDisable(!editar);
+        btnCancelar.setDisable(!editar);
 
-        BtnNovo.setDisable(editar);
-        BtnAlterar.setDisable(editar);
-        BtnExcluir.setDisable(editar);
+        btnNovo.setDisable(editar);
+        btnAlterar.setDisable(editar);
+        btnExcluir.setDisable(editar);
 
-        LstEditoras.setDisable(editar);
+        lstEditoras.setDisable(editar);
 
         if (editar) {
-            TxtNome.requestFocus();
+            txtNome.requestFocus();
         }
     }
 
@@ -76,56 +79,61 @@ public class GuiEditora implements Initializable {
         }
         ObservableList<Editora> dados = FXCollections.observableArrayList(editoras);
 
-        
-        LstEditoras.setItems(dados);
+        lstEditoras.setItems(dados);
     }
 
     private void getEditoraSelecionado() {
-        editora = LstEditoras.getSelectionModel().getSelectedItem();
-        TxtId.setText(editora.getCodigo().toString());
-        TxtNome.setText(editora.getNome());
+        editora = lstEditoras.getSelectionModel().getSelectedItem();
+        txtId.setText(editora.getCodigo().toString());
+        txtNome.setText(editora.getNome());
     }
 
-    //Eventos de Tela
+    private void limparTela() {
+        txtId.setText("");
+        txtNome.setText("");
+    }
+
+    // Eventos de Tela
     @FXML
-    private void LstAutores_KeyPressed(KeyEvent event) {
+    private void lstAutoresKeyPressed(KeyEvent event) {
         getEditoraSelecionado();
     }
 
     @FXML
-    private void LstAutores_MouseClicked(MouseEvent event) {
+    private void lstAutoresMouseClicked(MouseEvent event) {
         getEditoraSelecionado();
     }
 
     @FXML
-    private void BtnNovo_Action(ActionEvent event) {
+    private void btnNovoAction(ActionEvent event) {
         editora = new Editora();
-        TxtId.setText("");
-        TxtNome.setText("");
+        limparTela();
         alteracao = false;
         habilitarEdicao(true);
     }
+
     @FXML
-    private void BtnAlterar_Action(ActionEvent event) {
+    private void btnAlterarAction(ActionEvent event) {
         alteracao = true;
         habilitarEdicao(true);
 
     }
+
     @FXML
-    private void BtnExcluir_Action(ActionEvent event) {
+    private void btnExcluirAction(ActionEvent event) {
         try {
             editoraDao.excluir(editora);
         } catch (Exception e) {
             e.printStackTrace();
             return;
         }
-
         preencherLista();
-        
+        limparTela();
     }
+
     @FXML
-    private void BtnGravar_Action(ActionEvent event) {
-        editora.setNome(TxtNome.getText());
+    private void btnGravarAction(ActionEvent event) {
+        editora.setNome(txtNome.getText());
 
         try {
             if (alteracao) {
@@ -141,14 +149,33 @@ public class GuiEditora implements Initializable {
         preencherLista();
 
     }
-    @FXML
-    private void BtnCancelar_Action(ActionEvent event) {
-        habilitarEdicao(false);
 
+    @FXML
+    private void btnCancelarAction(ActionEvent event) {
+        habilitarEdicao(false);
     }
-    
+
+    @FXML
+    private void btnRetornarAction(ActionEvent event) {
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/fxml/GuiBibliotecario.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/styles/Styles.css");
+
+            Stage stage = new Stage();
+            stage.setTitle("Bem Vindo(a) Bibliotecario(a)");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) txtNome.getScene().getWindow();
+        stage.close();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         preencherLista();
-    }    
+    }
 }

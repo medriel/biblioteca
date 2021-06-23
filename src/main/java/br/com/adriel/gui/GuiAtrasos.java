@@ -18,40 +18,40 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 public class GuiAtrasos implements Initializable {
-	@FXML
-	private ListView<Emprestimo> lstAtrasos;
+    @FXML
+    private ListView<Emprestimo> lstAtrasos;
 
-	private void preencherLista() {
-		try {
-			List<Emprestimo> emprestimosAtrasados = new EmprestimoDao().getPendentes();
-			ObservableList<Emprestimo> emprestimos = FXCollections.observableArrayList(emprestimosAtrasados);
-			lstAtrasos.setItems(emprestimos);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    private void preencherLista() {
+        try {
+            List<Emprestimo> emprestimosAtrasados = new EmprestimoDao().getPendentes();
+            ObservableList<Emprestimo> emprestimos = FXCollections.observableArrayList(emprestimosAtrasados);
+            lstAtrasos.setItems(emprestimos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	@FXML
-	private void btnRetornarAction(ActionEvent event) {
-		Parent root;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/fxml/GuiBibliotecario.fxml"));
-			Scene scene = new Scene(root);
-			scene.getStylesheets().add("/styles/Styles.css");
+    @FXML
+    private void btnRetornarAction(ActionEvent event) {
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/fxml/GuiBibliotecario.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/styles/Styles.css");
 
-			Stage stage = new Stage();
-			stage.setTitle("Bem Vindo(a) Bibliotecario(a)");
-			stage.setScene(scene);
-			stage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Stage stage = (Stage) lstAtrasos.getScene().getWindow();
-		stage.close();
-	}
+            Stage stage = new Stage();
+            stage.setTitle("Bem Vindo(a) Bibliotecario(a)");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) lstAtrasos.getScene().getWindow();
+        stage.close();
+    }
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		preencherLista();
-	}
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        preencherLista();
+    }
 }

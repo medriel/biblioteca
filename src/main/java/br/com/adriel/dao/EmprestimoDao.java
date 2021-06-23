@@ -54,7 +54,6 @@ public class EmprestimoDao extends Dao implements Persistencia<Emprestimo> {
 
             emprestimos.add(emprestimo);
         }
-        //fecharConexao();
         return emprestimos;
     }
 
@@ -71,8 +70,6 @@ public class EmprestimoDao extends Dao implements Persistencia<Emprestimo> {
         ps.setDate(1, Date.valueOf(dado.getDataDevolucao()));
         ps.setLong(2, dado.getCodigo());
         ps.executeUpdate();
-
-        //fecharConexao();
     }
 
     @Override
@@ -99,7 +96,6 @@ public class EmprestimoDao extends Dao implements Persistencia<Emprestimo> {
                 emprestimosDisponiveis.add(e);
             }
         }
-
         return emprestimosDisponiveis;
     }
 
@@ -121,13 +117,13 @@ public class EmprestimoDao extends Dao implements Persistencia<Emprestimo> {
             emprestimo.setExemplar(new LivroDao().buscarExemplar(rs.getLong("exemplar_codigo")));
 
             if (emprestimo.getLeitor() instanceof Aluno
-                    && ChronoUnit.DAYS.between(emprestimo.getDataEmprestimo(), LocalDate.now()) > Aluno.getLimitedevolucao()
-                    || ChronoUnit.DAYS.between(emprestimo.getDataEmprestimo(), LocalDate.now()) > Professor.getLimitedevolucao()) {
+                    && ChronoUnit.DAYS.between(emprestimo.getDataEmprestimo(), LocalDate.now()) > Aluno
+                            .getLimitedevolucao()
+                    || ChronoUnit.DAYS.between(emprestimo.getDataEmprestimo(), LocalDate.now()) > Professor
+                            .getLimitedevolucao()) {
                 emprestimos.add(emprestimo);
             }
         }
-
-        //fecharConexao();
         return emprestimos;
     }
 }

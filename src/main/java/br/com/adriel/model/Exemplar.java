@@ -57,7 +57,7 @@ public class Exemplar {
     @Override
     public String toString() {
         if (codigo == null) {
-            return "Codigo gerado após a gravação";
+            return "O código gerado após a gravação";
         } else {
             return codigo.toString();
         }

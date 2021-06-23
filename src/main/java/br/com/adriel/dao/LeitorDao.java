@@ -8,8 +8,7 @@ import br.com.adriel.model.Aluno;
 import br.com.adriel.model.Leitor;
 import br.com.adriel.model.Professor;
 
-
-public class LeitorDao extends Dao implements Persistencia<Leitor>{
+public class LeitorDao extends Dao implements Persistencia<Leitor> {
 
     @Override
     public void gravar(Leitor dado) throws Exception {
@@ -18,7 +17,6 @@ public class LeitorDao extends Dao implements Persistencia<Leitor>{
         ps.setString(1, dado.getCpf());
         ps.setString(2, dado.getNome());
         ps.executeUpdate();
-        
     }
 
     @Override
@@ -31,7 +29,7 @@ public class LeitorDao extends Dao implements Persistencia<Leitor>{
         leitores.addAll(professores);
         leitores.addAll(alunos);
 
-        return leitores; 
+        return leitores;
     }
 
     @Override
@@ -41,7 +39,6 @@ public class LeitorDao extends Dao implements Persistencia<Leitor>{
         ps.setString(1, dado.getNome());
         ps.setString(2, dado.getCpf());
         ps.executeUpdate();
-        
     }
 
     @Override
@@ -50,17 +47,15 @@ public class LeitorDao extends Dao implements Persistencia<Leitor>{
         PreparedStatement ps = getPreparedStatement(false, sql);
         ps.setString(1, dado.getCpf());
         ps.executeUpdate();
-        
+
     }
 
-    public Leitor buscarLeitor(String cpf) throws Exception{
+    public Leitor buscarLeitor(String cpf) throws Exception {
         Leitor leitor = new AlunoDao().buscarAluno(cpf);
 
-        if(leitor == null){
-            leitor= new ProfessorDao().buscarProfessor(cpf);
+        if (leitor == null) {
+            leitor = new ProfessorDao().buscarProfessor(cpf);
         }
-
-        return leitor; 
+        return leitor;
     }
-    
 }

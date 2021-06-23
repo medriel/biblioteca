@@ -42,7 +42,7 @@ public class GuiCadastroUsuario implements Initializable {
     public void limparTela() {
         txtLogin.setText("");
         txtSenha.setText("");
-        cbCargo.getSelectionModel().select("");
+        cbCargo.getSelectionModel().clearSelection();
     }
 
     private void preencherLista() {

@@ -63,6 +63,7 @@ public class UsuarioDao extends Dao implements Persistencia<Usuario> {
             usuarioOk.setCargo(rs.getString("cargo"));
 
             return usuarioOk;
+
         } else {
             return null;
         }

@@ -40,65 +40,65 @@ public class GuiLivro implements Initializable {
 
     // Objetos de tela
     @FXML
-    private ListView<Livro> LstLivros;
+    private ListView<Livro> lstLivros;
     @FXML
-    private ListView<Autor> LstAutores;
+    private ListView<Autor> lstAutores;
     @FXML
-    private ListView<Exemplar> LstExemplares;
+    private ListView<Exemplar> lstExemplares;
 
     @FXML
-    private Button BtnNovo;
+    private Button btnNovo;
     @FXML
-    private Button BtnAlterar;
+    private Button btnAlterar;
     @FXML
-    private Button BtnExcluir;
+    private Button btnExcluir;
     @FXML
-    private Button BtnAdicionarAutor;
+    private Button btnAdicionarAutor;
     @FXML
-    private Button BtnRemoverAutor;
+    private Button btnRemoverAutor;
     @FXML
-    private Button BtnAdicionarExemplar;
+    private Button btnAdicionarExemplar;
     @FXML
-    private Button BtnGravar;
+    private Button btnGravar;
     @FXML
-    private Button BtnCancelar;
+    private Button btnCancelar;
 
     @FXML
-    private TextField TxtIsbn;
+    private TextField txtIsbn;
     @FXML
-    private TextField TxtNome;
+    private TextField txtNome;
     @FXML
-    private TextField TxtAno;
+    private TextField txtAno;
 
     @FXML
-    private ComboBox<Editora> CboEditora;
+    private ComboBox<Editora> cbEditora;
     @FXML
-    private ComboBox<Autor> CboAutor;
+    private ComboBox<Autor> cbAutor;
 
     // Funcionalidades
     private void habilitarEdicao(boolean entrar) {
-        BtnNovo.setDisable(entrar);
-        BtnAlterar.setDisable(entrar);
-        BtnExcluir.setDisable(entrar);
-        TxtIsbn.setEditable(entrar);
-        TxtNome.setEditable(entrar);
-        TxtAno.setEditable(entrar);
-        CboEditora.setDisable(!entrar);
-        CboAutor.setDisable(!entrar);
-        BtnAdicionarAutor.setDisable(!entrar);
-        BtnRemoverAutor.setDisable(!entrar);
-        LstAutores.setDisable(!entrar);
-        BtnAdicionarExemplar.setDisable(!entrar);
-        LstExemplares.setDisable(!entrar);
-        BtnGravar.setDisable(!entrar);
-        BtnCancelar.setDisable(!entrar);
+        btnNovo.setDisable(entrar);
+        btnAlterar.setDisable(entrar);
+        btnExcluir.setDisable(entrar);
+        txtIsbn.setEditable(entrar);
+        txtNome.setEditable(entrar);
+        txtAno.setEditable(entrar);
+        cbEditora.setDisable(!entrar);
+        cbAutor.setDisable(!entrar);
+        btnAdicionarAutor.setDisable(!entrar);
+        btnRemoverAutor.setDisable(!entrar);
+        lstAutores.setDisable(!entrar);
+        btnAdicionarExemplar.setDisable(!entrar);
+        lstExemplares.setDisable(!entrar);
+        btnGravar.setDisable(!entrar);
+        btnCancelar.setDisable(!entrar);
     }
 
     private void preencherLivros() {
         try {
             List<Livro> livros = livroDao.getDados();
             ObservableList<Livro> dados = FXCollections.observableArrayList(livros);
-            LstLivros.setItems(dados);
+            lstLivros.setItems(dados);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -109,7 +109,7 @@ public class GuiLivro implements Initializable {
         try {
             List<Autor> autores = autorDao.getDados();
             ObservableList<Autor> dados = FXCollections.observableArrayList(autores);
-            CboAutor.setItems(dados);
+            cbAutor.setItems(dados);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -120,7 +120,7 @@ public class GuiLivro implements Initializable {
         try {
             List<Editora> editoras = editoraDao.getDados();
             ObservableList<Editora> dados = FXCollections.observableArrayList(editoras);
-            CboEditora.setItems(dados);
+            cbEditora.setItems(dados);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,7 +132,7 @@ public class GuiLivro implements Initializable {
             return;
         try {
             ObservableList<Exemplar> dados = FXCollections.observableArrayList(livro.getExemplares());
-            LstExemplares.setItems(dados);
+            lstExemplares.setItems(dados);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -144,7 +144,7 @@ public class GuiLivro implements Initializable {
             return;
         try {
             ObservableList<Autor> dados = FXCollections.observableArrayList(livro.getAutores());
-            LstAutores.setItems(dados);
+            lstAutores.setItems(dados);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -155,81 +155,88 @@ public class GuiLivro implements Initializable {
         if (livro == null)
             return;
 
-        TxtIsbn.setText(livro.getIsbn());
-        TxtNome.setText(livro.getNome());
-        TxtAno.setText(livro.getAno());
-        CboEditora.getSelectionModel().select(livro.getEditora());
+        txtIsbn.setText(livro.getIsbn());
+        txtNome.setText(livro.getNome());
+        txtAno.setText(livro.getAno());
+        cbEditora.getSelectionModel().select(livro.getEditora());
         preencherAutoresLivro();
         preencherExemplaresLivro();
     }
 
-    // Eventos de Tela
+    private void limparTela() {
+        txtIsbn.setText("");
+        txtNome.setText("");
+        txtAno.setText("");
+        cbEditora.getSelectionModel().clearSelection();
+        cbAutor.getSelectionModel().clearSelection();
+        lstAutores.getItems().clear();
+        lstExemplares.getItems().clear();
+    }
+
     @FXML
-    private void BtnNovo_Action(ActionEvent event) {
+    private void btnNovoAction(ActionEvent event) {
         livro = new Livro();
         alterando = false;
         habilitarEdicao(true);
-        TxtIsbn.setText("");
-        TxtNome.setText("");
-        TxtAno.setText("");
-        CboEditora.getSelectionModel().clearSelection();
-        CboAutor.getSelectionModel().clearSelection();
-        TxtIsbn.requestFocus();
+        limparTela();
+        txtIsbn.requestFocus();
     }
 
     @FXML
-    private void BtnAlterar_Action(ActionEvent event) {
-        livro = LstLivros.getSelectionModel().getSelectedItem();
+    private void btnAlterarAction(ActionEvent event) {
+        livro = lstLivros.getSelectionModel().getSelectedItem();
         exibirLivro();
         alterando = true;
         habilitarEdicao(true);
-        TxtIsbn.setEditable(false);
-        TxtNome.requestFocus();
+        txtIsbn.setEditable(false);
+        txtNome.requestFocus();
     }
 
     @FXML
-    private void BtnExcluir_Action(ActionEvent event) {
-        try { 
-            livro = LstLivros.getSelectionModel().getSelectedItem(); 
-            new LivroDao().excluir(livro);;
+    private void btnExcluirAction(ActionEvent event) {
+        try {
+            livro = lstLivros.getSelectionModel().getSelectedItem();
+            new LivroDao().excluir(livro);
+            ;
             preencherLivros();
-          } catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-          }
+        }
+        limparTela();
     }
 
     @FXML
-    private void BtnAdicionarAutor_Action(ActionEvent event) {
-        Autor autor = CboAutor.getSelectionModel().getSelectedItem();
+    private void btnAdicionarAutorAction(ActionEvent event) {
+        Autor autor = cbAutor.getSelectionModel().getSelectedItem();
         livro.adicionarAutor(autor);
         preencherAutoresLivro();
 
     }
 
     @FXML
-    private void BtnRemoverAutor_Action(ActionEvent event) {
-        Autor autor = LstAutores.getSelectionModel().getSelectedItem();
+    private void btnRemoverAutorAction(ActionEvent event) {
+        Autor autor = lstAutores.getSelectionModel().getSelectedItem();
         livro.removerAutor(autor);
         preencherAutoresLivro();
 
     }
 
     @FXML
-    private void BtnAdicionarExemplar_Action(ActionEvent event) {
+    private void btnAdicionarExemplarAction(ActionEvent event) {
         livro.adicionarExemplar(new Exemplar());
         preencherExemplaresLivro();
     }
 
     @FXML
-    private void BtnGravar_Action(ActionEvent event) {
+    private void btnGravarAction(ActionEvent event) {
         try {
-            livro.setEditora(CboEditora.getSelectionModel().getSelectedItem());
-            livro.setNome(TxtNome.getText());
-            livro.setAno(TxtAno.getText());
+            livro.setEditora(cbEditora.getSelectionModel().getSelectedItem());
+            livro.setNome(txtNome.getText());
+            livro.setAno(txtAno.getText());
             if (alterando) {
                 livroDao.alterar(livro);
             } else {
-                livro.setIsbn(TxtIsbn.getText());
+                livro.setIsbn(txtIsbn.getText());
                 livroDao.gravar(livro);
             }
         } catch (Exception e) {
@@ -239,10 +246,11 @@ public class GuiLivro implements Initializable {
 
         preencherLivros();
         habilitarEdicao(false);
+        limparTela();
     }
 
     @FXML
-    private void BtnCancelar_Action(ActionEvent event) {
+    private void btnCancelarAction(ActionEvent event) {
         habilitarEdicao(false);
     }
 
@@ -261,20 +269,20 @@ public class GuiLivro implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Stage stage = (Stage) BtnNovo.getScene().getWindow();
+        Stage stage = (Stage) btnNovo.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    private void LstLivros_KeyPressed(KeyEvent event) {
-        livro = LstLivros.getSelectionModel().getSelectedItem();
+    private void lstLivrosKeyPressed(KeyEvent event) {
+        livro = lstLivros.getSelectionModel().getSelectedItem();
         exibirLivro();
 
     }
 
     @FXML
-    private void LstLivros_MouseClicked(MouseEvent event) {
-        livro = LstLivros.getSelectionModel().getSelectedItem();
+    private void lstLivrosMouseClicked(MouseEvent event) {
+        livro = lstLivros.getSelectionModel().getSelectedItem();
         exibirLivro();
     }
 

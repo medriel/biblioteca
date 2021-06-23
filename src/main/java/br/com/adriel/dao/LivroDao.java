@@ -94,7 +94,6 @@ public class LivroDao extends Dao implements Persistencia<Livro> {
 
             livros.add(livro);
         }
-
         return livros;
     }
 
@@ -212,7 +211,6 @@ public class LivroDao extends Dao implements Persistencia<Livro> {
                 }
             }
         }
-
         return resultado;
     }
 

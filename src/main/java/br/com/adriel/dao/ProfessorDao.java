@@ -7,12 +7,12 @@ import java.util.List;
 
 import br.com.adriel.model.Professor;
 
-public class ProfessorDao extends Dao implements Persistencia<Professor>{
+public class ProfessorDao extends Dao implements Persistencia<Professor> {
 
     @Override
     public void gravar(Professor dado) throws Exception {
         new LeitorDao().gravar(dado);
-        
+
         String sql = "insert into professor (leitor_cpf, disciplina) values (?,?)";
         PreparedStatement ps = getPreparedStatement(false, sql);
         ps.setString(1, dado.getCpf());
@@ -45,7 +45,7 @@ public class ProfessorDao extends Dao implements Persistencia<Professor>{
         ps.setString(1, dado.getDisciplina());
         ps.setString(2, dado.getCpf());
         ps.executeUpdate();
-        
+
     }
 
     @Override
@@ -56,23 +56,23 @@ public class ProfessorDao extends Dao implements Persistencia<Professor>{
         ps.executeUpdate();
 
         new LeitorDao().excluir(dado);
-        
+
     }
-    
-    public Professor buscarProfessor(String cpf) throws Exception{
+
+    public Professor buscarProfessor(String cpf) throws Exception {
         String sql = "select leitor.cpf, leitor.nome, professor.disciplina from  professor inner join leitor"
                 + " on leitor.cpf = professor.leitor_cpf where leitor.cpf =?";
         PreparedStatement ps = getPreparedStatement(false, sql);
         ps.setString(1, cpf);
         ResultSet rs = ps.executeQuery();
-        
-        if(rs.next()){
+
+        if (rs.next()) {
             Professor professor = new Professor();
             professor.setCpf(rs.getString("cpf"));
             professor.setDisciplina(rs.getString("disciplina"));
             professor.setNome(rs.getString("nome"));
             return professor;
-        }else{
+        } else {
             return null;
         }
     }

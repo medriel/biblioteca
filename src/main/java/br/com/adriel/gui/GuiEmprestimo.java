@@ -121,7 +121,7 @@ public class GuiEmprestimo implements Initializable {
     }
 
     @FXML
-    private void cbLivroAction(ActionEvent event){
+    private void cbLivroAction(ActionEvent event) {
         preencherExemplar();
     }
 
@@ -149,21 +149,24 @@ public class GuiEmprestimo implements Initializable {
         try {
             Leitor leitor = cbLeitor.getSelectionModel().getSelectedItem();
             Exemplar exemplar = cbExemplar.getSelectionModel().getSelectedItem();
-    
+
             exemplar.setStatus(Status.emprestado);
-    
+
             emprestimo.setLeitor(leitor);
             emprestimo.setDataEmprestimo(LocalDate.now());
             emprestimo.setExemplar(exemplar);
             emprestimo.setCodigo(exemplar.getCodigo());
             emprestimo.setEndereco(txtEndereco.getText());
             emprestimo.setTelefone(txtTelefone.getText());
-    
+
             emprestimoDao.gravar(emprestimo);
 
             desabilitarTela();
             lstEmprestimos.setDisable(false);
             preencherLista();
+
+            txtEndereco.setText("");
+            txtTelefone.setText("");
         } catch (Exception e) {
             e.printStackTrace();
         }

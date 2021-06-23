@@ -7,19 +7,24 @@ public class Leitor {
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     public String getCpf() {
         return cpf;
     }
+
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
     @Override
     public String toString() {
         return nome;
     }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -27,6 +32,7 @@ public class Leitor {
         result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
         return result;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -42,6 +48,6 @@ public class Leitor {
         } else if (!cpf.equals(other.cpf))
             return false;
         return true;
-    }   
-    
+    }
+
 }

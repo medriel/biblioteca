@@ -8,6 +8,6 @@ public interface Persistencia<T> {
     public List<T> getDados() throws Exception;
 
     public void alterar(T dado) throws Exception;
-    
+
     public void excluir(T dado) throws Exception;
 }

@@ -92,7 +92,7 @@ public class GuiAutor implements Initializable {
         txtNacionalidade.setText(autor.getNacionalidade());
     }
 
-    private void limparCampos() {
+    private void limparTela() {
         txtId.setText("");
         txtNacionalidade.setText("");
         txtNome.setText("");
@@ -112,7 +112,7 @@ public class GuiAutor implements Initializable {
     @FXML
     private void btnNovoAction(ActionEvent event) {
         autor = new Autor();
-        limparCampos();
+        limparTela();
         alteracao = false;
         habilitarEdicao(true);
     }
@@ -132,7 +132,7 @@ public class GuiAutor implements Initializable {
             return;
         }
         preencherLista();
-        limparCampos();
+        limparTela();
 
     }
 
@@ -153,7 +153,7 @@ public class GuiAutor implements Initializable {
         }
         habilitarEdicao(false);
         preencherLista();
-        limparCampos();
+        limparTela();
     }
 
     @FXML

@@ -13,6 +13,7 @@
    <rowConstraints>
       <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
       <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnAutoresAction" prefHeight="85.0" prefWidth="190.0" text="Cadastrar Autores" textAlignment="CENTER" GridPane.rowIndex="1">
@@ -31,6 +32,11 @@
          </GridPane.margin>
       </Button>
       <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnAtrasosAction" prefHeight="85.0" prefWidth="190.0" text="Consultar Atrasos" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnEditorasAction" prefHeight="85.0" prefWidth="190.0" text="Cadastrar Editoras" textAlignment="CENTER" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>

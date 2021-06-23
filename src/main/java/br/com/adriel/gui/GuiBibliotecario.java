@@ -63,8 +63,15 @@ public class GuiBibliotecario implements Initializable {
     @FXML
     private void btnAtrasosAction(ActionEvent event) {
 
-        // exibirTela("GuiAtrasos", "Consulta de Emprestimos Atrasados");
-        // fecharTela();
+        exibirTela("GuiAtrasos", "Consulta os Leitores em Atraso");
+        fecharTela();
+    }
+
+    @FXML
+    private void btnEditorasAction(ActionEvent event) {
+
+        exibirTela("GuiEditora", "Cadastrar Editoras");
+        fecharTela();
     }
 
     @Override

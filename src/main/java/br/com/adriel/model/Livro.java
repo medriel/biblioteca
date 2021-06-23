@@ -10,34 +10,43 @@ public class Livro {
     private Editora editora;
     private List<Autor> autores = new ArrayList<Autor>();
     private List<Exemplar> exemplares = new ArrayList<Exemplar>();
+
     public String getIsbn() {
         return isbn;
     }
+
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
+
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     public Editora getEditora() {
         return editora;
     }
+
     public void setEditora(Editora editora) {
         this.editora = editora;
     }
+
     public List<Autor> getAutores() {
         return autores;
     }
+
     public void setAutores(List<Autor> autores) {
         this.autores = autores;
     }
-    
+
     public List<Exemplar> getExemplares() {
         return exemplares;
     }
+
     public void setExemplares(List<Exemplar> exemplares) {
         this.exemplares = exemplares;
     }
@@ -45,13 +54,16 @@ public class Livro {
     public String getAno() {
         return ano;
     }
+
     public void setAno(String ano) {
         this.ano = ano;
     }
+
     @Override
     public String toString() {
         return nome;
     }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -59,6 +71,7 @@ public class Livro {
         result = prime * result + ((isbn == null) ? 0 : isbn.hashCode());
         return result;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -75,16 +88,18 @@ public class Livro {
             return false;
         return true;
     }
-    
-    public void adicionarAutor(Autor autor){
+
+    public void adicionarAutor(Autor autor) {
         autores.add(autor);
     }
-    public void adicionarExemplar(Exemplar exemplar){
+
+    public void adicionarExemplar(Exemplar exemplar) {
         exemplar.setLivro(this);
         exemplar.setStatus(Status.disponivel);
         exemplares.add(exemplar);
     }
-    public void removerAutor(Autor autor){
+
+    public void removerAutor(Autor autor) {
         autores.remove(autor);
     }
 }

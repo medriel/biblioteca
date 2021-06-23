@@ -1,8 +1,8 @@
 package br.com.adriel.model;
 
-public class Professor extends Leitor{
+public class Professor extends Leitor {
     private String disciplina;
-    private static final Integer LIMITEDEVOLUCAO=30;
+    private static final Integer LIMITEDEVOLUCAO = 30;
 
     public String getDisciplina() {
         return disciplina;
