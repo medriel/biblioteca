@@ -5,23 +5,23 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="CENTER" prefHeight="277.0" prefWidth="461.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.adriel.gui.GuiAtendente">
+<GridPane alignment="CENTER" prefHeight="350.0" prefWidth="598.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.adriel.gui.GuiAtendente">
    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="229.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="231.0" minWidth="10.0" prefWidth="231.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="300.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="345.0" minWidth="10.0" prefWidth="298.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnLeitoresAction" prefHeight="85.0" prefWidth="190.0" text="Cadastrar Leitores" textAlignment="CENTER" GridPane.columnIndex="1">
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnLeitoresAction" prefHeight="85.0" prefWidth="240.0" text="Cadastro de Leitores" textAlignment="CENTER" GridPane.columnIndex="1">
          <GridPane.margin>
-            <Insets left="20.0" />
+            <Insets left="25.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="btnEmprestimo" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnEmprestimoAction" prefHeight="85.0" prefWidth="190.0" text="Realizar Empréstimo">
+      <Button fx:id="btnEmprestimo" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnGerenciamentoEmprestimoAction" prefHeight="85.0" prefWidth="240.0" text="Gerenciamento de Empréstimos">
          <GridPane.margin>
-            <Insets left="20.0" />
+            <Insets left="25.0" />
          </GridPane.margin>
       </Button>
    </children>

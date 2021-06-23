@@ -40,7 +40,7 @@ public class GuiAtendente implements Initializable {
     }
 
     @FXML
-    private void btnEmprestimoAction(ActionEvent event) {
+    private void btnGerenciamentoEmprestimoAction(ActionEvent event) {
 
         exibirTela("GuiEmprestimo", "Empréstimo de Livros");
         fecharTela();
